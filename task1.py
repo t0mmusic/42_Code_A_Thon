@@ -1,7 +1,8 @@
+from decimal import *
+
 #Prints the rating the start-up has recieved
 def	rating(founder, industry, traction, gut):
-	score = round(founder + industry + traction + gut, 2)
-	print(score)
+	score = round(founder + industry + traction + gut, 0)
 	if score >= 4:
 			print("P1")
 	elif score >= 2.5:
@@ -13,8 +14,7 @@ def	rating(founder, industry, traction, gut):
 
 #Converts string to float and multiplies by the multiplier
 def	convert_float(factor, multiple):
-	print(round(float(factor) * multiple, 2))
-	return round(float(factor) * multiple, 2)
+	return Decimal(factor) * Decimal(multiple)
 
 #Checks that the user has entered a numeric value
 def check_numeric(value):
@@ -26,10 +26,10 @@ def check_numeric(value):
 		return False
 
 #Defining variables
-founder_mult = .3
-industry_mult = .3
-traction_mult = .35
-gut_mult = .05
+founder_mult = ".3"
+industry_mult = ".3"
+traction_mult = ".35"
+gut_mult = ".05"
 
 user_in = input("Enter a Start-up’s factor ratings (separated by comma):")
 input_split = user_in.split(",")
