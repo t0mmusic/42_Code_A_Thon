@@ -28,7 +28,7 @@ def present_all(in_type):
 		count += 1
 	if flag == False:
 		print(">>> No startup satisfied requirement for " + in_type + " ratings.")
-		print("-----------------------------------------------------------------")
+	print("-----------------------------------------------------------------")
 
 #Checks that value entered by the user is positive
 def check_bounds(value):
