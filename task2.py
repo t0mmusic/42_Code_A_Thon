@@ -29,7 +29,7 @@ def find_average(data, total, index):
 	count = 0
 	average = 0
 	while count < total:
-		average += data[count][index]
+		average += float(data[count][index])
 		count += 1
 	return round(average / total, 2)
 
@@ -61,10 +61,10 @@ def	print_result(data):
 	total = len(data)
 	print("Number of Start-ups:", total)
 	print("Start-up progression rate:", round(find_number(data, total, 9, "R") / total * 100, 0), "%")
-	print("Average rating for factor 1:", find_average(data, total, 5))
-	print("Average rating for factor 2:", find_average(data, total, 6))
-	print("Average rating for factor 3:", find_average(data, total, 7))
-	print("Average rating for factor 4:", find_average(data, total, 8))
+	print("Average rating for factor 1:", find_average(data, total, 1))
+	print("Average rating for factor 2:", find_average(data, total, 2))
+	print("Average rating for factor 3:", find_average(data, total, 3))
+	print("Average rating for factor 4:", find_average(data, total, 4))
 	print_list(number_of(data, total, 9, "P1") , "Number of P1s")
 	print_list(number_of(data, total, 9, "P2") , "Number of P2s")
 	print_list(number_of(data, total, 9, "P3") , "Number of P3s")
@@ -86,6 +86,7 @@ traction_mult = .35
 guts_mult = .05
 user_in = ""
 data = []
+
 #Loops until user enters "N"
 while 1:
 	user_in = input("Enter a start-up’s factor rating (separated by comma), type in letter N to finish:\n")
@@ -97,7 +98,10 @@ while 1:
 		print("You have not entered the correct number of arguments!")
 		continue
 	#Checks that user has entered numbers
-	if not check_numeric(input_split[1]) or not check_numeric(input_split[2]) or not check_numeric(input_split[3]) or not check_numeric(input_split[4]):
+	if (not check_numeric(input_split[1]) 
+	or not check_numeric(input_split[2]) 
+	or not check_numeric(input_split[3]) 
+	or not check_numeric(input_split[4])):
 		continue
 	input_split.append(convert_float(input_split[1], founder_mult))
 	input_split.append(convert_float(input_split[2], industry_mult))
