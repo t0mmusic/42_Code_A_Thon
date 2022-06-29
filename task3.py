@@ -6,7 +6,7 @@ from os.path import exists
 #Checks if a file has been generated containing user data
 file_exists = exists("data.csv")
 if file_exists == False:
-	print("No user data exists!")
+	print("!!! No startup data exists! !!!")
 	quit()
 
 #opens the csv file containing the data from task 2 and saves it to a list
@@ -24,10 +24,11 @@ def present_all(in_type):
 	while count < total:
 		if data[count][9] == in_type:
 			flag = True
-			print(data[count][0])
+			print(">>> " + data[count][0])
 		count += 1
 	if flag == False:
 		print(">>> No startup satisfied requirement for " + in_type + " ratings.")
+		print("-----------------------------------------------------------------")
 
 #Checks that value entered by the user is positive
 def check_bounds(value):
@@ -42,7 +43,6 @@ def check_numeric(value):
 		float(value)
 		return True
 	except ValueError:
-		print("Inputs must be numeric!")
 		return False
 
 #Returns the score the start-up has recieved
@@ -74,13 +74,15 @@ def find_largest(ratings):
 
 #Prompts user to enter the number of businesses to invest in
 def	business_number():
-	user_in = input(">>> How many businesses do you want to invest in:")
+	user_in = input(">>> How many businesses do you want to invest in: >>>")
 	os.system('cls' if os.name == 'nt' else 'clear')
 	if not check_numeric(user_in):
-		print("Please enter a numeric value.")
+		print("!!! Must be a positive numeric value! !!!")
+		print("-----------------------------------------------------------------")
 		return
 	if not check_bounds(user_in):
-		print("Number must be a positive value.")
+		print("!!! Number must be a positive value! !!!")
+		print("-----------------------------------------------------------------")
 		return
 	bus_num = int(user_in)
 	count = 0
@@ -90,13 +92,14 @@ def	business_number():
 		count += 1
 		index = find_largest(ratings)
 		if index >= 0:
-			print(data[index][0] + ", " + data[index][9])
+			print(">>> " + data[index][0] + ", " + data[index][9])
 			flag = True
-		elif flag == True and count != bus_num:
-			print("No more companies meet the criteria.")
-			return
+		elif flag == True and count <= bus_num:
+			print(">>> No more companies meet the criteria.")
+			break
 	if flag == False:
-		print("There are no companies worth investing in :(")
+		print(">>> There are no companies worth investing in :(")
+	print("-----------------------------------------------------------------")
 
 #Prompts the user to enter one of the options
 os.system('cls' if os.name == 'nt' else 'clear')
@@ -107,7 +110,7 @@ while 1:
 	print("4. Present all R")
 	print("5. How many businesses do you want to invest in")
 	print("6. Terminate")
-	user_in = input("Which option do you want to see: ")
+	user_in = input("Which option do you want to see: >>>")
 	if user_in == "1":
 		present_all("P1")
 	elif user_in == "2":
@@ -122,4 +125,4 @@ while 1:
 		quit()
 	else:
 		os.system('cls' if os.name == 'nt' else 'clear')
-		print("Invalid option!")
+		print("!!! Invalid option! !!!")
