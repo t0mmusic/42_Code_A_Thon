@@ -16,6 +16,14 @@ def	rating(founder, industry, traction, gut):
 def	convert_float(factor, multiple):
 	return Decimal(factor) * Decimal(multiple)
 
+#Checks that values entered by user are between 0 and 5
+def check_bounds(value):
+	if float(value) < 0 or float(value) > 5:
+		print("!!! Number entered must be between 0 and 5! !!!")
+		return False
+	else:
+		return True
+
 #Checks that the user has entered a numeric value
 def check_numeric(value):
 	try:
@@ -40,6 +48,11 @@ if (not check_numeric(input_split[1])
 	or not check_numeric(input_split[2]) 
 	or not check_numeric(input_split[3]) 
 	or not check_numeric(input_split[4])):
+		quit()
+if (not check_bounds(input_split[1]) 
+	or not check_bounds(input_split[2]) 
+	or not check_bounds(input_split[3]) 
+	or not check_bounds(input_split[4])):
 		quit()
 rating(convert_float(input_split[1], founder_mult), 
 		convert_float(input_split[2], industry_mult),
