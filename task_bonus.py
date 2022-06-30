@@ -101,7 +101,7 @@ def	add_entry():
 	data.append(new_startup)
 	output.insert("end-1c", new_startup.name + " added with a rating of " + new_startup.rating)
 
-#Gives the total score of a start-up 
+#Gives the total score of a start-up
 def total_score(startup):
 	return startup.fou_score + startup.ind_score + startup.tra_score + startup.gut_score
 
@@ -198,7 +198,7 @@ def find_average(data, total, match):
 	for x in data:
 			average += getattr(x, match)
 	return str(round(average / total, 2))
-	
+
 #Find the number of startups meeting input criteria and appends all those startups to the list
 def number_of(data, comp):
 	count = 0
@@ -207,6 +207,7 @@ def number_of(data, comp):
 			count += 1
 	return str(count)
 
+#prints all result from task2
 def	print_result():
 	output.delete(1.0, "end-1c")
 	if not data:
@@ -223,6 +224,33 @@ def	print_result():
 	output.insert("end-1c", "Number of P2s: " + number_of(data, "P2") + "\n")
 	output.insert("end-1c", "Number of P3s: " + number_of(data, "P3") + "\n")
 	output.insert("end-1c", "Number of Rs: " + number_of(data, "R"))
+
+#removes an element from the list given its name
+def	remove_startup():
+	output.delete(1.0, "end-1c")
+	s_name = e1.get()
+	if not s_name:
+		output.insert("end-1c", "Please enter name of start-up to be removed.")
+		return
+	for x in data:
+		if x.name == s_name:
+			data.remove(x)
+			output.insert("end-1c", s_name + " has been removed.")
+			return
+	output.insert("end-1c", "There is no start-up named " + s_name)
+
+
+#Adds all start-ups from PDFs
+data.append(Startup("FiveFour Inc", 3.5, 2, 4.75, 5))
+data.append(Startup("Doggy Ties", 1, 1.5, 1, 0))
+data.append(Startup("Letus Play", 4.5, 4, 4.5, 4))
+data.append(Startup("Rural Distillery", 4.6, 5, 4.75, 4.5))
+data.append(Startup("Acme Corp", 0.4, 1.2, 0.8, 0.2))
+data.append(Startup("Litze", 3, 2.75, 2.1, 2))
+data.append(Startup("Cakes for Days", 3.2, 2.8, 3.5, 3))
+data.append(Startup("Abstrakt", 2, 2.5, 2.3, 2.6))
+data.append(Startup("Performance Duds", 2.4, 2.25, 2.5, 2.5))
+data.append(Startup("Baby Hatty", 2, 1.2, 1.1, 0.5))
 
 #importing the graphical library
 import tkinter as tk
@@ -245,66 +273,72 @@ e4 = tk.Entry(master)
 e5 = tk.Entry(master)
 
 #Places each of the text-entry boxes
-e1.grid(row=0, column=1)
-e2.grid(row=1, column=1)
-e3.grid(row=2, column=1)
-e4.grid(row=3, column=1)
-e5.grid(row=4, column=1)
+e1.grid(row=0, column=1, sticky=tk.E)
+e2.grid(row=1, column=1, sticky=tk.E)
+e3.grid(row=2, column=1, sticky=tk.E)
+e4.grid(row=3, column=1, sticky=tk.E)
+e5.grid(row=4, column=1, sticky=tk.E)
 
 #Buttons added for user to press for each option
 tk.Button(master, text='Add/Update startup',
-			command=add_entry).grid(row=5, 
-                            		column=1, 
-                                    sticky=tk.W, 
+			command=add_entry).grid(row=5,
+                            		column=1,
+                                    sticky=tk.E,
+                                    pady=4)
+#Button to remove startup
+tk.Button(master, text='Remove startup',
+			command=remove_startup).grid(row=6,
+                            		column=1,
+                                    sticky=tk.E,
                                     pady=4)
 tk.Button(master, text='Present all P1',
-			command= lambda: present_all("P1")).grid(row=6, 
-                            		column=0, 
-                                    sticky=tk.W, 
+			command= lambda: present_all("P1")).grid(row=6,
+                            		column=0,
+                                    sticky=tk.W,
                                     pady=4)
 tk.Button(master, text='Present all P2',
-			command= lambda: present_all("P2")).grid(row=7, 
-                            		column=0, 
-                                    sticky=tk.W, 
+			command= lambda: present_all("P2")).grid(row=7,
+                            		column=0,
+                                    sticky=tk.W,
                                     pady=4)
 tk.Button(master, text='Present all P3',
-			command= lambda: present_all("P3")).grid(row=8, 
-                            		column=0, 
-                                    sticky=tk.W, 
+			command= lambda: present_all("P3")).grid(row=8,
+                            		column=0,
+                                    sticky=tk.W,
                                     pady=4)
 tk.Button(master, text='Present all R',
-			command= lambda: present_all("R")).grid(row=9, 
-                            		column=0, 
-                                    sticky=tk.W, 
+			command= lambda: present_all("R")).grid(row=9,
+                            		column=0,
+                                    sticky=tk.W,
                                     pady=4)
 #Extra button for listing all start-ups
 tk.Button(master, text='List all start-ups',
-			command=list_all).grid(row=10, 
-                            		column=0, 
-                                    sticky=tk.W, 
+			command=list_all).grid(row=10,
+                            		column=0,
+                                    sticky=tk.W,
                                     pady=4)
 tk.Button(master, text='Show general data',
-			command=print_result).grid(row=11, 
-                            		column=0, 
-                                    sticky=tk.W, 
+			command=print_result).grid(row=11,
+                            		column=0,
+                                    sticky=tk.W,
                                     pady=4)
 #new field, label and button for number of start-ups to invest in
 e6 = tk.Entry(master)
 tk.Label(master, text="How many start-ups would you like to invest in?").grid(row=12, columnspan=2, sticky=tk.W)
 e6.grid(row=13, column=0)
 tk.Button(master, text='Enter',
-			command=business_number).grid(row=13, 
-                            		column=1, 
-                                    sticky=tk.W, 
+			command=business_number).grid(row=13,
+                            		column=1,
+                                    sticky=tk.W,
                                     pady=4)
 #Sets the value of output to what is in the text box at the bottom. This is where everything is printed.
-output = tk.Text(master, width = 55, height = 50)
+output = tk.Text(master, width = 50, height = 40)
 output.grid(row=14, column=0, columnspan=2, sticky=tk.W, pady=4)
 #Button to exit the program
-tk.Button(master, text='Quit', 
-        	command=master.quit).grid(row=15, 
-                                    column=0, 
-                                    sticky=tk.W, 
+tk.Button(master, text='Quit',
+        	command=master.quit).grid(row=15,
+                                    column=0,
+                                    sticky=tk.W,
                                     pady=4)
 #Prevents the program from exiting until the user chooses to
 tk.mainloop()
